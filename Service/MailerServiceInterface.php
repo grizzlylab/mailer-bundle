@@ -1,12 +1,12 @@
 <?php
 
-namespace GrizzlyLab\Bundle\MailerBundle\Mailer;
+namespace GrizzlyLab\Bundle\MailerBundle\Service;
 
 /**
  * interface MailerInterface
  * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
-interface MailerInterface
+interface MailerServiceInterface
 {
     /**
      * Send an email

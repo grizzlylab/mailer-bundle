@@ -1,23 +1,19 @@
 <?php
 
-namespace GrizzlyLab\Bundle\MailerBundle\Mailer;
+namespace GrizzlyLab\Bundle\MailerBundle\Service;
 
 use Swift_Mailer;
 
 /**
- * Mailer
+ * class MailerService
  * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
-class Mailer implements MailerInterface
+class MailerService implements MailerServiceInterface
 {
-    /**
-     * @var Swift_Mailer
-     */
+    /** @var Swift_Mailer */
     protected $mailer;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $sender;
 
     /**
