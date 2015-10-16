@@ -1,0 +1,25 @@
+{
+    "name": "grizzlylab/mailer-bundle",
+    "type": "symfony-bundle",
+    "description": "Basic mailer",
+    "keywords": ["mailer", "swiftmailer"],
+    "homepage": "https://github.com/grizzlylab/MailerBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jean-Louis Pirson",
+            "email": "jl.pirson@grizzlylab.be"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "~2.7",
+        "symfony/swiftmailer-bundle": "~2.3",
+    },
+    "autoload": {
+        "psr-4": {
+            "Grizzlylab\\Bundle\\MailerBundle\\": ""
+        }
+    }
+}
+

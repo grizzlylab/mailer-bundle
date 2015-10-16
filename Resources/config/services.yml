@@ -1,0 +1,7 @@
+parameters:
+    grizzlylab_mailer.class: GrizzlyLab\Bundle\MailerBundle\Mailer\Mailer
+
+services:
+    grizzlylab_mailer:
+        class: %grizzlylab_mailer.class%
+        arguments: [@mailer, {'address': %mailer_sender_address%, 'name': %mailer_sender_name%}]
