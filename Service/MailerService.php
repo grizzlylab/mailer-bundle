@@ -1,6 +1,6 @@
 <?php
 
-namespace GrizzlyLab\Bundle\MailerBundle\Service;
+namespace Grizzlylab\Bundle\MailerBundle\Service;
 
 use Swift_Mailer;
 
