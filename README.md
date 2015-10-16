@@ -5,8 +5,9 @@ Basic mailer service to send an e-mail with just one line of code.
 It uses the mailer service delivered with Symfony 2 (Swift_Mailer).
 
 ###1. Requirements
-- PHP >=5.4
-- Symfony ~2.7
+   * "php": ">=5.4"
+   * "symfony/symfony": "~2.7"
+   * "symfony/swiftmailer-bundle": "~2.3"
 
 ###2. Installation
 
@@ -38,7 +39,7 @@ swiftmailer:
     spool:          { type: memory }
     sender_address: "%mailer_sender_address%"
 ```
-#### (OPTIONNAL) You can use your new paremeters (defined in parameters.yml) in your SwiftMailer configuration
+#### OPTIONNAL: You can use your new paremeters (defined in parameters.yml) in your SwiftMailer configuration
 This way, even if you send an e-mail without "grizzlylab_mailer", the "sender_address" will be the same.
 ```
 #app/config/config.yml
@@ -50,11 +51,11 @@ swiftmailer:
 ```
 
 ###4. Use
-####1. Create a rendered template (any string) following these rules:
+#####1. Create a rendered template (any string) following these rules:
    * use the first line as the subject
    * use the rest as the body
 
-####2. Finally, use the service to send an e-mail: 
+#####2. Finally, use the service to send an e-mail: 
 ```
 $this->container->get('grizzlylab_mailer')->send($renderedTemplate, $sender, $toEmail);
 ```
