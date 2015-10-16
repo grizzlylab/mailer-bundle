@@ -11,12 +11,11 @@ interface MailerInterface
     /**
      * Send an email
      *
-     * @param string $renderedTemplate
-     * @param string $fromEmail
-     * @param string $toEmail
+     * @param string     $renderedTemplate
+     * @param string     $toEmail
+     * @param array|null $sender
      *
      * @return void
      */
-    public function send($renderedTemplate, $fromEmail, $toEmail);
-
+    public function send($renderedTemplate, $toEmail, array $sender = null);
 }

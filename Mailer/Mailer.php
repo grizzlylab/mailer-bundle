@@ -24,7 +24,7 @@ class Mailer implements MailerInterface
      * Constructor
      *
      * @param Swift_Mailer $mailer
-     * @param array $sender
+     * @param array        $sender
      */
     public function __construct(Swift_Mailer $mailer, $sender)
     {
@@ -35,11 +35,11 @@ class Mailer implements MailerInterface
     /**
      * Send email message
      *
-     * @param string $renderedTemplate
-     * @param array $sender
-     * @param string $toEmail
+     * @param string     $renderedTemplate
+     * @param string     $toEmail
+     * @param array|null $sender
      */
-    public function send($renderedTemplate, $sender, $toEmail)
+    public function send($renderedTemplate, $toEmail, array $sender = null)
     {
 
         // Render the email, use the first line as the subject, && the rest as the body
@@ -56,7 +56,7 @@ class Mailer implements MailerInterface
             ->setBody($body);
 
         // Default sender
-        if(!isset($sender)){
+        if ($sender == null) {
             $sender = $this->sender;
         }
 

@@ -18,6 +18,8 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
+        $treeBuilder->root('grizzlylab_mailer');
+
         return $treeBuilder;
     }
 }
