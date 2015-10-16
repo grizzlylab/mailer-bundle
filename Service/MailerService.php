@@ -3,6 +3,7 @@
 namespace Grizzlylab\Bundle\MailerBundle\Service;
 
 use Swift_Mailer;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * class MailerService
@@ -16,37 +17,35 @@ class MailerService implements MailerServiceInterface
     /** @var array */
     protected $sender;
 
+    /** @var EngineInterface */
+    private $templating;
+
     /**
-     * Constructor
-     *
-     * @param Swift_Mailer $mailer
-     * @param array        $sender
+     * {@inheritdoc}
      */
-    public function __construct(Swift_Mailer $mailer, $sender)
+    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, $sender)
     {
         $this->mailer = $mailer;
+        $this->templating = $templating;
         $this->sender = $sender;
     }
 
     /**
-     * Send email message
-     *
-     * Addresses can be an array (multiple recipients) or a string (single recipient)
-     * The return value is the number of recipients who were accepted for delivery.
-     *
-     * @param string       $renderedTemplate
-     * @param array|string $addresses
-     * @param array|null   $sender
-     *
-     * @return int
+     * {@inheritdoc}
      */
-    public function send($renderedTemplate, $addresses, array $sender = null)
+    public function send($content, $addresses, $subject = null, array $templateParameters = null, $contentIsATemplate = true, array $sender = null)
     {
 
-        // Render the email, use the first line as the subject, && the rest as the body
-        $renderedLines = explode("\n", trim($renderedTemplate));
-        $subject = $renderedLines[0];
-        $body = implode("\n", array_slice($renderedLines, 1));
+        if ($contentIsATemplate) {
+            // Render the email, use the first line as the subject, && the rest as the body
+            $renderedLines = explode("\n", trim($this->templating->render($content, $templateParameters)));
+            if ($subject === null) {
+                $subject = $renderedLines[0];
+            }
+            $body = implode("\n", array_slice($renderedLines, 1));
+        } else {
+            $body = $content;
+        }
 
         /**
          * @var \Swift_Message $message
