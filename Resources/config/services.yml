@@ -1,5 +1,5 @@
 parameters:
-    grizzlylab_mailer.class: GrizzlyLab\Bundle\MailerBundle\Mailer\Mailer
+    grizzlylab_mailer.class: GrizzlyLab\Bundle\MailerBundle\Service\MailerService
 
 services:
     grizzlylab_mailer:

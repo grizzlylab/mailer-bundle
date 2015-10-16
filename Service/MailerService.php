@@ -1,30 +1,26 @@
 <?php
 
-namespace GrizzlyLab\Bundle\MailerBundle\Mailer;
+namespace GrizzlyLab\Bundle\MailerBundle\Service;
 
 use Swift_Mailer;
 
 /**
- * Mailer
+ * class MailerService
  * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
-class Mailer implements MailerInterface
+class MailerService implements MailerServiceInterface
 {
-    /**
-     * @var Swift_Mailer
-     */
+    /** @var Swift_Mailer */
     protected $mailer;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $sender;
 
     /**
      * Constructor
      *
      * @param Swift_Mailer $mailer
-     * @param array $sender
+     * @param array        $sender
      */
     public function __construct(Swift_Mailer $mailer, $sender)
     {
@@ -35,11 +31,16 @@ class Mailer implements MailerInterface
     /**
      * Send email message
      *
-     * @param string $renderedTemplate
-     * @param array $sender
-     * @param string $toEmail
+     * Addresses can be an array (multiple recipients) or a string (single recipient)
+     * The return value is the number of recipients who were accepted for delivery.
+     *
+     * @param string       $renderedTemplate
+     * @param array|string $addresses
+     * @param array|null   $sender
+     *
+     * @return int
      */
-    public function send($renderedTemplate, $sender, $toEmail)
+    public function send($renderedTemplate, $addresses, array $sender = null)
     {
 
         // Render the email, use the first line as the subject, && the rest as the body
@@ -52,16 +53,16 @@ class Mailer implements MailerInterface
          */
         $message = $this->mailer->createMessage()
             ->setSubject($subject)
-            ->setTo($toEmail)
+            ->setTo($addresses)
             ->setBody($body);
 
         // Default sender
-        if(!isset($sender)){
+        if ($sender == null) {
             $sender = $this->sender;
         }
 
         $message->setFrom($sender['address'], $sender['name']);
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 }
