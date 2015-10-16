@@ -31,11 +31,16 @@ class MailerService implements MailerServiceInterface
     /**
      * Send email message
      *
-     * @param string     $renderedTemplate
-     * @param string     $toEmail
-     * @param array|null $sender
+     * Addresses can be an array (multiple recipients) or a string (single recipient)
+     * The return value is the number of recipients who were accepted for delivery.
+     *
+     * @param string       $renderedTemplate
+     * @param array|string $addresses
+     * @param array|null   $sender
+     *
+     * @return int
      */
-    public function send($renderedTemplate, $toEmail, array $sender = null)
+    public function send($renderedTemplate, $addresses, array $sender = null)
     {
 
         // Render the email, use the first line as the subject, && the rest as the body
@@ -48,7 +53,7 @@ class MailerService implements MailerServiceInterface
          */
         $message = $this->mailer->createMessage()
             ->setSubject($subject)
-            ->setTo($toEmail)
+            ->setTo($addresses)
             ->setBody($body);
 
         // Default sender
@@ -58,6 +63,6 @@ class MailerService implements MailerServiceInterface
 
         $message->setFrom($sender['address'], $sender['name']);
 
-        $this->mailer->send($message);
+        return $this->mailer->send($message);
     }
 }

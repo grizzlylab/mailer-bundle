@@ -57,7 +57,18 @@ swiftmailer:
 
 #####2. Finally, use the service to send an e-mail: 
 ```
-$this->container->get('grizzlylab_mailer')->send($renderedTemplate, $sender, $toEmail);
+// for a single recipient, second arguement is a string (e.g. 'recipient@domain.com')
+$this->container->get('grizzlylab_mailer')->send($renderedTemplate, $address);
+
+// for multiple recipients, second arguement is an array
+$this->container->get('grizzlylab_mailer')->send($renderedTemplate, $addresses);
+
+// you can override the sender 
+$sender = ['address' => adresse@domain.com, 'name' => 'GrizzlyLab'];
+$this->container->get('grizzlylab_mailer')->send($renderedTemplate, $addresses, $sender);
+
+// the return value is the number of recipients who were accepted for delivery
+$numberOfAcceptedRecipients = $this->container->get('grizzlylab_mailer')->send($renderedTemplate, $addresses, $sender);
 ```
 
 That's it.
