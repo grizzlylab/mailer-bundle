@@ -18,7 +18,7 @@ class MailerService implements MailerServiceInterface
     protected $sender;
 
     /** @var EngineInterface */
-    private $templating;
+    protected $templating;
 
     /**
      * {@inheritdoc}
@@ -63,5 +63,14 @@ class MailerService implements MailerServiceInterface
         $message->setFrom($sender['address'], $sender['name']);
 
         return $this->mailer->send($message);
+    }
+
+    /**
+     * Get sender
+     * return array
+     */
+    public function getSender()
+    {
+        return $this->getSender();
     }
 }
