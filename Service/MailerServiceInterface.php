@@ -26,4 +26,10 @@ interface MailerServiceInterface
      * @return int
      */
     public function send($content, $addresses, $subject = null, array $templateParameters = null, $contentIsATemplate = true, array $sender = null);
+
+    /**
+     * Get sender
+     * @return array
+     */
+    public function getSender();
 }
