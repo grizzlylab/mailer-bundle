@@ -3,5 +3,5 @@ parameters:
 
 services:
     grizzlylab_mailer:
-        class: %grizzlylab_mailer.class%
-        arguments: ["@mailer", "@templating",  {'address': %mailer_sender_address%, 'name': %mailer_sender_name%}]
+        class: "%grizzlylab_mailer.class%"
+        arguments: ["@mailer", "@templating",  {'address': "%mailer_sender_address%", 'name': "%mailer_sender_name%"}]

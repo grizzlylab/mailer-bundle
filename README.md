@@ -6,7 +6,7 @@ It uses the mailer service delivered with Symfony 2 (Swift_Mailer).
 
 ###1. Requirements
    * "php": ">=5.4"
-   * "symfony/symfony": "~2.7"
+   * "symfony/symfony": "~2.7|~3.0"
    * "symfony/swiftmailer-bundle": "~2.3"
 
 ###2. Installation
