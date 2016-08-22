@@ -33,7 +33,7 @@ class MailerService implements MailerServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function send($content, $addresses, $subject = null, array $templateParameters = null, $contentIsATemplate = true, array $sender = null)
+    public function send($content, $addresses, $subject = null, array $templateParameters = [], $contentIsATemplate = true, array $sender = null)
     {
 
         if ($contentIsATemplate) {
