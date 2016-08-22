@@ -2,7 +2,7 @@ GrizzlylabMailerBundle
 ======================
 
 Basic mailer service to send an e-mail with just one line of code.
-It uses the mailer service delivered with Symfony 2 (Swift_Mailer).
+It uses the mailer service delivered with Symfony 2/3 (Swift_Mailer).
 
 ###1. Requirements
    * "php": ">=5.4"
@@ -11,13 +11,30 @@ It uses the mailer service delivered with Symfony 2 (Swift_Mailer).
 
 ###2. Installation
 
-- ```composer require 'grizzlylab/mailer-bundle@dev-master'```
-- in AppKernel.php: ```new Grizzlylab\Bundle\MailerBundle\GrizzlylabMailerBundle()```
+With [composer](http://packagist.org), add:
+```json
+{
+    "require": {
+        "grizzlylab/mailer-bundle": "1.*"
+    }
+}
+```
+
+Then enable it in your kernel:
+```php
+// app/AppKernel.php
+public function registerBundles()
+{
+    $bundles = array(
+        //...
+        new Grizzlylab\Bundle\MailerBundle\GrizzlylabMailerBundle()
+        //...
+```
 
 ###3. Configuration
 
 #### Configure parameters.yml
-```
+```yaml
 #app/config/parameters.yml (advice, set it in "parameters.yml.dist" also)
     #...
     mailer_sender_address: noreply@domain.com #required, will be injected in mailer service
@@ -26,7 +43,7 @@ It uses the mailer service delivered with Symfony 2 (Swift_Mailer).
 ```
 
 #### Configure SwiftMailer (if not already done)
-```
+```yaml
 #SwifMailer Configuration
 swiftmailer:
     transport:      "%mailer_transport%"
@@ -39,9 +56,9 @@ swiftmailer:
     spool:          { type: memory }
     sender_address: "%mailer_sender_address%"
 ```
-#### OPTIONNAL: You can use your new paremeters (defined in parameters.yml) in your SwiftMailer configuration
+#### OPTIONAL: You can use your new parameters (defined in parameters.yml) in your SwiftMailer configuration
 This way, even if you send an e-mail without "grizzlylab_mailer", the "sender_address" will be the same.
-```
+```yaml
 #app/config/config.yml
 #SwifMailer Configuration
 swiftmailer:
@@ -51,14 +68,23 @@ swiftmailer:
 ```
 
 ###4. Use
-#####1. Create a rendered template (any string) following these rules:
+#####1. Content:
+######a) By default, the $content argument is the location of a Twig template: 
+```php
+$container->get('grizzlylab_mailer')->send('@AcmeUser/Mail/awesome.txt.twig', $emails);
+```
+Rules inside your Twig template:
    * use the first line as the subject
    * use the rest as the body
 
-#####2. Finally, use the service to send an e-mail: 
+######b) If you just want to use a simple string, set the argument $contentIsATemplate to false
+```php
+$container->get('grizzlylab_mailer')->send('@AcmeUser/Mail/awesome.txt.twig', $emails, null, [], false);
 ```
 
-//send($content, $addresses, $subject = null, array $templateParameters = null, $contentIsATemplate = true, array $sender = null)
+#####2. More examples
+```php
+//send($content, $addresses, $subject = null, array $templateParameters = [], $contentIsATemplate = true, array $sender = null)
 //If the content is a template and if the subject is null, we use the first line of the template as the subject && the rest as the body
 
 // for a single recipient, second arguement is a string (e.g. 'recipient@domain.com')
@@ -75,7 +101,7 @@ $this->container->get('grizzlylab_mailer')->send($content, $addresses, $sender);
 $numberOfAcceptedRecipients = $this->container->get('grizzlylab_mailer')->send($content, $addresses, $sender);
 ```
 
-That's it.
+That's it!
 
 License
 -------
