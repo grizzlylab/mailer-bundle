@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * class MailerService
+ *
  * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
 class MailerService implements MailerServiceInterface
@@ -33,7 +34,16 @@ class MailerService implements MailerServiceInterface
     /**
      * {@inheritdoc}
      */
-    public function send($content, $addresses, $subject = null, array $templateParameters = [], $contentIsATemplate = true, array $sender = null)
+    public function send(
+        $content,
+        $addresses,
+        $subject = null,
+        array $templateParameters = [],
+        $contentIsATemplate = true,
+        array $sender = null,
+        $contentType = 'text/html',
+        $charset = null
+    )
     {
 
         if ($contentIsATemplate) {
@@ -47,13 +57,11 @@ class MailerService implements MailerServiceInterface
             $body = $content;
         }
 
-        /**
-         * @var \Swift_Message $message
-         */
+        /** @var \Swift_Message $message */
         $message = $this->mailer->createMessage()
             ->setSubject($subject)
             ->setTo($addresses)
-            ->setBody($body);
+            ->setBody($body, $contentType, $charset);
 
         // Default sender
         if ($sender == null) {
