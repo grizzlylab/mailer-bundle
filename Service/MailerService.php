@@ -3,12 +3,13 @@
 namespace Grizzlylab\Bundle\MailerBundle\Service;
 
 use Swift_Mailer;
+use Swift_Attachment;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
  * class MailerService
  *
- * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
+ * @author Jean-Louis Pirson <jeanlouis@myqm.io>
  */
 class MailerService implements MailerServiceInterface
 {
@@ -41,11 +42,11 @@ class MailerService implements MailerServiceInterface
         array $templateParameters = [],
         $contentIsATemplate = true,
         array $sender = null,
+        Swift_Attachment $attachment = null,
         $contentType = 'text/html',
         $charset = null
     )
     {
-
         if ($contentIsATemplate) {
             // Render the email, use the first line as the subject, && the rest as the body
             $renderedLines = explode("\n", trim($this->templating->render($content, $templateParameters)));
@@ -66,6 +67,10 @@ class MailerService implements MailerServiceInterface
         // Default sender
         if ($sender == null) {
             $sender = $this->sender;
+        }
+
+        if(!empty($attachment)){
+            $message->attach($attachment);
         }
 
         $message->setFrom($sender['address'], $sender['name']);

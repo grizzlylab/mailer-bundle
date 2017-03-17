@@ -3,10 +3,12 @@
 namespace Grizzlylab\Bundle\MailerBundle\Service;
 
 use Symfony\Component\Templating\TemplateReferenceInterface;
+use Swift_Attachment;
 
 /**
  * interface MailerInterface
- * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
+ *
+ * @author Jean-Louis Pirson <jeanlouis@myqm.io>
  */
 interface MailerServiceInterface
 {
@@ -20,15 +22,30 @@ interface MailerServiceInterface
      * @param array|string                      $addresses          can be an array (multiple recipients) or a string (single recipient)
      * @param string|null                       $subject            subject of email
      * @param array                             $templateParameters parameters for template (useful only if content is a template and if contentIsAtemplate is set to true)
+     *
      * @param boolean                           $contentIsATemplate determines if the message is actually a template
      * @param array|null                        $sender             the number of recipients who were accepted for delivery.
+     * @param \Swift_Attachment                 $attachment
+     * @param string                            $contentType
+     * @param  string                           $charset
      *
      * @return int
      */
-    public function send($content, $addresses, $subject = null, array $templateParameters = [], $contentIsATemplate = true, array $sender = null);
+    public function send(
+        $content,
+        $addresses,
+        $subject = null,
+        array $templateParameters = [],
+        $contentIsATemplate = true,
+        array $sender = null,
+        Swift_Attachment $attachment = null,
+        $contentType = 'text/html',
+        $charset = null
+    );
 
     /**
      * Get sender
+     *
      * @return array
      */
     public function getSender();
