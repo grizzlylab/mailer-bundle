@@ -8,7 +8,6 @@ It uses the mailer service delivered with Symfony 2/3 (Swift_Mailer).
 
 Since 1.2.1, PHP 7.1+ is required.
 Before this release, PHP 5.4 is the minimum required.
-
    * "php": ">=7.1"
    * "symfony/symfony": "~2.7|~3.0"
    * "symfony/swiftmailer-bundle": "~2.3"
