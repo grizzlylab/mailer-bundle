@@ -4,7 +4,7 @@ GrizzlylabMailerBundle
 Basic mailer service to send an e-mail with just one line of code.
 It uses the mailer service delivered with Symfony 2/3 (Swift_Mailer).
 
-###1. Requirements
+### 1. Requirements
 
 Since 1.2.1, PHP 7.1+ is required.
 Before this release, PHP 5.4 is the minimum required.
@@ -12,7 +12,7 @@ Before this release, PHP 5.4 is the minimum required.
    * "symfony/symfony": "~2.7|~3.0"
    * "symfony/swiftmailer-bundle": "~2.3"
 
-###2. Installation
+### 2. Installation
 
 With [composer](http://packagist.org), add:
 ```json
@@ -34,7 +34,7 @@ public function registerBundles()
         //...
 ```
 
-###3. Configuration
+### 3. Configuration
 
 #### Configure parameters.yml
 ```yaml
@@ -70,11 +70,9 @@ swiftmailer:
     #...
 ```
 
-###4. Use
-
-#####1. Content:
-
-######a) By default, the $content argument is the location of a Twig template: 
+### 4. Use
+##### 1. Content:
+###### a) By default, the $content argument is the location of a Twig template: 
 ```php
 $container->get('grizzlylab_mailer')->send('@AcmeUser/Mail/awesome.txt.twig', $emails);
 ```
@@ -82,12 +80,12 @@ Rules inside your Twig template:
    * use the first line as the subject
    * use the rest as the body
 
-######b) If you just want to use a simple string, set the argument $contentIsATemplate to false
+###### b) If you just want to use a simple string, set the argument $contentIsATemplate to false
 ```php
 $container->get('grizzlylab_mailer')->send('@AcmeUser/Mail/awesome.txt.twig', $emails, null, [], false);
 ```
 
-#####2. More examples
+##### 2. More examples
 ```php
 //send($content, $addresses, $subject = null, array $templateParameters = [], $contentIsATemplate = true, array $sender = null)
 //If the content is a template and if the subject is null, we use the first line of the template as the subject && the rest as the body
