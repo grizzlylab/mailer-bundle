@@ -71,7 +71,9 @@ swiftmailer:
 ```
 
 ###4. Use
+
 #####1. Content:
+
 ######a) By default, the $content argument is the location of a Twig template: 
 ```php
 $container->get('grizzlylab_mailer')->send('@AcmeUser/Mail/awesome.txt.twig', $emails);
