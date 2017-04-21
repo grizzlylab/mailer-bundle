@@ -13,20 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
  */
 class MailerService implements MailerServiceInterface
 {
-    /** @var Swift_Mailer */
     protected $mailer;
-
-    /** @var array */
     protected $sender;
-
-    /** @var EngineInterface */
     protected $templating;
 
     /**
      * {@inheritdoc}
      */
-    public function __construct(Swift_Mailer $mailer, EngineInterface $templating, $sender)
-    {
+    public function __construct(
+        Swift_Mailer $mailer,
+        ?EngineInterface $templating, // if null, it must be set with the setter method "setTemplating"
+        array $sender
+    ) {
         $this->mailer = $mailer;
         $this->templating = $templating;
         $this->sender = $sender;
@@ -45,11 +43,11 @@ class MailerService implements MailerServiceInterface
         Swift_Attachment $attachment = null,
         $contentType = 'text/html',
         $charset = null
-    )
-    {
+    ) {
         if ($contentIsATemplate) {
             // Render the email, use the first line as the subject, && the rest as the body
             $renderedLines = explode("\n", trim($this->templating->render($content, $templateParameters)));
+
             if ($subject === null) {
                 $subject = $renderedLines[0];
             }
@@ -69,7 +67,7 @@ class MailerService implements MailerServiceInterface
             $sender = $this->sender;
         }
 
-        if(!empty($attachment)){
+        if (!empty($attachment)) {
             $message->attach($attachment);
         }
 
@@ -85,5 +83,15 @@ class MailerService implements MailerServiceInterface
     public function getSender()
     {
         return $this->getSender();
+    }
+
+    /**
+     * setTemplating
+     *
+     * @param EngineInterface $templating
+     */
+    public function setTemplating(EngineInterface $templating)
+    {
+        $this->templating = $templating;
     }
 }
