@@ -2,6 +2,7 @@
 
 namespace Grizzlylab\Bundle\MailerBundle\Service;
 
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\Templating\TemplateReferenceInterface;
 use Swift_Attachment;
 
@@ -49,4 +50,12 @@ interface MailerServiceInterface
      * @return array
      */
     public function getSender();
+
+    /**
+     * Set templating
+     * @param EngineInterface $templating
+     *
+     * @return mixed
+     */
+    public function setTemplating(EngineInterface $templating);
 }
