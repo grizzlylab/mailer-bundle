@@ -22,7 +22,7 @@ class MailerService implements MailerServiceInterface
      */
     public function __construct(
         Swift_Mailer $mailer,
-        ?EngineInterface $templating, // if null, it must be set with the setter method "setTemplating"
+        EngineInterface $templating, // if null, it must be set with the setter method "setTemplating"
         array $sender
     ) {
         $this->mailer = $mailer;
