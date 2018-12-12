@@ -13,8 +13,8 @@
     ],
     "require": {
         "php": ">=7.1",
-        "symfony/symfony": "~2.7|~3.0",
-        "symfony/swiftmailer-bundle": "~2.3"
+        "symfony/templating": "~3.0",
+        "symfony/swiftmailer-bundle": "~3.0"
     },
     "autoload": {
         "psr-4": {
