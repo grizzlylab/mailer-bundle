@@ -1,24 +1,31 @@
 {
-    "name": "grizzlylab/mailer-bundle",
-    "type": "symfony-bundle",
-    "description": "Basic mailer",
-    "keywords": ["mailer", "swiftmailer"],
-    "homepage": "https://github.com/grizzlylab/MailerBundle",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Jean-Louis Pirson",
-            "email": "jl.pirson@grizzlylab.be"
-        }
-    ],
-    "require": {
-        "php": ">=7.1",
-        "symfony/templating": "~3.0",
-        "symfony/swiftmailer-bundle": "~3.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "Grizzlylab\\Bundle\\MailerBundle\\": ""
-        }
+  "name": "grizzlylab/mailer-bundle",
+  "type": "symfony-bundle",
+  "description": "Basic mailer",
+  "keywords": [
+    "mailer",
+    "swiftmailer"
+  ],
+  "homepage": "https://github.com/grizzlylab/MailerBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jean-Louis Pirson",
+      "email": "jl.pirson@grizzlylab.be"
     }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "symfony/templating": "~3.0",
+    "symfony/swiftmailer-bundle": "~3.0"
+  },
+  "require-dev": {
+    "phpro/grumphp": "^0.14.0",
+    "friendsofphp/php-cs-fixer": "^2.11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Grizzlylab\\Bundle\\MailerBundle\\": ""
+    }
+  }
 }

@@ -2,14 +2,14 @@
 
 namespace Grizzlylab\Bundle\MailerBundle\Service;
 
-use Swift_Mailer;
 use Swift_Attachment;
+use Swift_Mailer;
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 
 /**
- * class MailerService
+ * class MailerService.
  *
- * @author Jean-Louis Pirson <jeanlouis@myqm.io>
+ * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
 class MailerService implements MailerServiceInterface
 {
@@ -18,11 +18,15 @@ class MailerService implements MailerServiceInterface
     protected $templating;
 
     /**
-     * {@inheritdoc}
+     * MailerService constructor.
+     *
+     * @param Swift_Mailer         $mailer
+     * @param EngineInterface|null $templating if null, it must be set with the setter method "setTemplating"
+     * @param array                $sender
      */
     public function __construct(
         Swift_Mailer $mailer,
-        ?EngineInterface $templating, // if null, it must be set with the setter method "setTemplating"
+        ?EngineInterface $templating,
         array $sender
     ) {
         $this->mailer = $mailer;
@@ -36,19 +40,19 @@ class MailerService implements MailerServiceInterface
     public function send(
         $content,
         $addresses,
-        $subject = null,
+        ?string $subject = null,
         array $templateParameters = [],
-        $contentIsATemplate = true,
-        array $sender = null,
+        bool $contentIsATemplate = true,
+        ?array $sender = null,
         Swift_Attachment $attachment = null,
-        $contentType = 'text/html',
-        $charset = null
+        string $contentType = 'text/html',
+        ?string $charset = null
     ) {
         if ($contentIsATemplate) {
             // Render the email, use the first line as the subject, && the rest as the body
             $renderedLines = explode("\n", trim($this->templating->render($content, $templateParameters)));
 
-            if ($subject === null) {
+            if (null === $subject) {
                 $subject = $renderedLines[0];
             }
             $body = implode("\n", array_slice($renderedLines, 1));
@@ -60,10 +64,11 @@ class MailerService implements MailerServiceInterface
         $message = $this->mailer->createMessage()
             ->setSubject($subject)
             ->setTo($addresses)
-            ->setBody($body, $contentType, $charset);
+            ->setBody($body, $contentType, $charset)
+        ;
 
         // Default sender
-        if ($sender == null) {
+        if (null == $sender) {
             $sender = $this->sender;
         }
 
@@ -77,18 +82,15 @@ class MailerService implements MailerServiceInterface
     }
 
     /**
-     * Get sender
-     * return array
+     * {@inheritdoc}
      */
-    public function getSender()
+    public function getSender(): array
     {
         return $this->getSender();
     }
 
     /**
-     * setTemplating
-     *
-     * @param EngineInterface $templating
+     * {@inheritdoc}
      */
     public function setTemplating(EngineInterface $templating)
     {

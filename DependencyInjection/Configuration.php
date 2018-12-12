@@ -6,9 +6,9 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * Class Configuration
- * @package Grizzlylab\Bundle\MailerBundle\DependencyInjection
- * @author  Jean-Louis Pirson <jl.pirson@grizzlylab.be>
+ * Class Configuration.
+ *
+ * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
 class Configuration implements ConfigurationInterface
 {

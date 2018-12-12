@@ -1,0 +1,13 @@
+# grumphp.yml
+parameters:
+  tasks:
+    phpcsfixer2:
+      allow_risky: false
+      cache_file: ~
+      config: .php_cs
+      rules: ["@@Symfony"]
+      using_cache: true
+      config_contains_finder: false
+      verbose: false
+      diff: false
+      triggered_by: ['php']
