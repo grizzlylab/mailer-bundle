@@ -5,22 +5,15 @@ Basic mailer service to send an e-mail with just one line of code.
 It uses the mailer service delivered with Symfony 2/3 (Swift_Mailer).
 
 ### 1. Requirements
+Since 1.3, important changes have been made to [dependencies](composer.json).
 
 Since 1.2.1, PHP 7.1+ is required.
 Before this release, PHP 5.4 is the minimum required.
-   * "php": ">=7.1"
-   * "symfony/symfony": "~2.7|~3.0"
-   * "symfony/swiftmailer-bundle": "~2.3"
 
 ### 2. Installation
-
-With [composer](http://packagist.org), add:
-```json
-{
-    "require": {
-        "grizzlylab/mailer-bundle": "1.*"
-    }
-}
+Run the command below to install via [composer](https://packagist.org)
+```shell
+composer require grizzlylab/mailer-bundle "~1.3"
 ```
 
 Then enable it in your kernel:
