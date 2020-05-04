@@ -1,42 +1,30 @@
 <?php
 
-namespace Grizzlylab\Bundle\MailerBundle\Service;
+namespace Grizzlylab\Bundle\MailerBundle\Mailer;
 
 use Swift_Attachment;
 use Swift_Mailer;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+use Twig\Environment;
 
 /**
- * class MailerService.
- *
  * @author Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
-class MailerService implements MailerServiceInterface
+class Mailer implements MailerInterface
 {
-    protected $mailer;
-    protected $sender;
-    protected $templating;
+    protected Swift_Mailer $mailer;
+    protected array $sender;
+    protected ?Environment $twig = null;
 
-    /**
-     * MailerService constructor.
-     *
-     * @param Swift_Mailer         $mailer
-     * @param EngineInterface|null $templating if null, it must be set with the setter method "setTemplating"
-     * @param array                $sender
-     */
     public function __construct(
         Swift_Mailer $mailer,
-        ?EngineInterface $templating,
+        ?Environment $twig,
         array $sender
     ) {
         $this->mailer = $mailer;
-        $this->templating = $templating;
+        $this->twig = $twig;
         $this->sender = $sender;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function send(
         $content,
         $addresses,
@@ -44,13 +32,13 @@ class MailerService implements MailerServiceInterface
         array $templateParameters = [],
         bool $contentIsATemplate = true,
         ?array $sender = null,
-        Swift_Attachment $attachment = null,
+        ?Swift_Attachment $attachment = null,
         string $contentType = 'text/html',
         ?string $charset = null
-    ) {
+    ): int {
         if ($contentIsATemplate) {
             // Render the email, use the first line as the subject, && the rest as the body
-            $renderedLines = explode("\n", trim($this->templating->render($content, $templateParameters)));
+            $renderedLines = explode("\n", trim($this->twig->render($content, $templateParameters)));
 
             if (null === $subject) {
                 $subject = $renderedLines[0];
@@ -68,11 +56,11 @@ class MailerService implements MailerServiceInterface
         ;
 
         // Default sender
-        if (null == $sender) {
+        if (null === $sender) {
             $sender = $this->sender;
         }
 
-        if (!empty($attachment)) {
+        if (null !== $attachment) {
             $message->attach($attachment);
         }
 
@@ -81,19 +69,13 @@ class MailerService implements MailerServiceInterface
         return $this->mailer->send($message);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getSender(): array
     {
-        return $this->getSender();
+        return $this->sender;
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function setTemplating(EngineInterface $templating)
+    public function setTwig(Environment $twig): void
     {
-        $this->templating = $templating;
+        $this->twig = $twig;
     }
 }

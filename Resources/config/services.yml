@@ -1,7 +1,7 @@
-parameters:
-    grizzlylab_mailer.class: Grizzlylab\Bundle\MailerBundle\Service\MailerService
-
 services:
+    Grizzlylab\Bundle\MailerBundle\Mailer\Mailer:
+        arguments: ["@mailer", "@twig",  {'address': "%mailer_sender_address%", 'name': "%mailer_sender_name%"}]
+
     grizzlylab_mailer:
-        class: "%grizzlylab_mailer.class%"
-        arguments: ["@mailer", "@templating",  {'address': "%mailer_sender_address%", 'name': "%mailer_sender_name%"}]
+        alias: Grizzlylab\Bundle\MailerBundle\Mailer\Mailer
+        public: true

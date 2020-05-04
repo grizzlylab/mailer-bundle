@@ -8,8 +8,6 @@ use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
 /**
- * Class GrizzlylabMailerExtension.
- *
  * @author  Jean-Louis Pirson <jl.pirson@grizzlylab.be>
  */
 class GrizzlylabMailerExtension extends Extension
@@ -17,7 +15,7 @@ class GrizzlylabMailerExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = new Configuration();
         $this->processConfiguration($configuration, $configs);
